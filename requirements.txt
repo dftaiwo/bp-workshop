@@ -1,0 +1,5 @@
+Flask>=2.0.0
+gunicorn
+python-dotenv==1.0.0
+google-generativeai>=0.3.0
+Pillow
