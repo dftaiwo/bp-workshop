@@ -259,7 +259,7 @@ def analyze():
     
     images = []
     for file in files:
-        if file and allowed_file(file.filename):
+        if file and allowed_file(file):
             image_data = Image.open(file.stream)
             images.append(image_data)
     
