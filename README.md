@@ -10,7 +10,9 @@ We'll go through four steps, each building upon the previous one.
 
 - Python 3.9+ Visit [Python.org](https://www.python.org/downloads/) to download and install Python.
 - Basic knowledge of Python, Flask, and HTML
-- Google Cloud account with Gemini API access 
+- Google Cloud Project with Gemini API access 
+- Google Cloud Credits -  <a href="https://trygcp.dev/e/build-ai-NA01">https://trygcp.dev/e/build-ai-NA01</a>
+
 
 
 ## Step 1: Basic Flask App with Image Upload
@@ -49,8 +51,15 @@ venv\Scripts\activate
 ```
 
 5. Install the required dependencies:
-These are listed in the `requirements.txt` file.
+To install, run the following pip command:
 
+```bash
+pip install -r requirements.txt
+```
+PS: If you don't have pip installed, you can install it by following the instructions <a href="https://pip.pypa.io/en/stable/installation/" target="_blank">here</a>. 
+Once pip is installed, you can run the above command to install the dependencies.
+
+Just in case you are wondering, here are the contents of the `requirements.txt` file.
 ```txt
 Flask>=2.0.0
 gunicorn
@@ -58,14 +67,6 @@ python-dotenv==1.0.0
 google-generativeai>=0.3.0
 Pillow
 ```
-
-To install, run the following pip command:
-
-```bash
-pip install -r requirements.txt
-```
-
-PS: If you don't have pip installed, you can install it by following the instructions <a href="https://pip.pypa.io/en/stable/installation/" target="_blank">here</a>. Once installed, you can run the above command to install the dependencies.
 
 6. Let's run and test the app:
 
@@ -119,6 +120,9 @@ In this  step, we'll use Google's Gemini API to analyze the image.
 To use the Gemini API, you need an API key. You can create a key with a few clicks in Google AI Studio.
 
 1. Go to the <a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio</a> and follow the instructions to create an API key.
+![Getting Gemini API Key](./static/images/screenshots/gemini_1.jpg)
+![Getting Gemini API Key](./static/images/screenshots/gemini_2.jpg)
+![Getting Gemini API Key](./static/images/screenshots/gemini_3.jpg)
 
 2. Save the API key in a file called `.env` in the root of the project.
 ```env
@@ -126,14 +130,14 @@ GEMINI_API_KEY=<your-api-key>
 ```
 You should not commit this `.env` file to your repository as it contains sensitive information. This is best practice for security reasons.
 
-2. We need to import the Gemini API client and configure it with our API key.
+3. We need to import the Gemini API client and configure it with our API key.
 In the import section of `app.py`, add the following:
 ```python
 from dotenv import load_dotenv
 import google.generativeai as genai
 ```
 
-3. After the `app` variable declaration, add the following:
+4. After the `app` variable declaration, add the following:
 
 ```python
 # Load environment variables
@@ -144,7 +148,7 @@ model = genai.GenerativeModel('gemini-1.5-flash')
 ```
 This will configure the Gemini API and set up the `model` variable we will use to analyze the image.
 
-4. Let's replace the `analyze` route to use the Gemini API to analyze the image and also define the `analyze_image` function.
+5. Let's replace the `analyze` route to use the Gemini API to analyze the image and also define the `analyze_image` function.
 
 ```python
 def analyze():
@@ -173,7 +177,7 @@ def analyze_image(image):
     )
 ```
 
-5. Let's test the app by uploading an image. Right now, the app will return a JSON response with the image description. 
+6. Let's test the app by uploading an image. Right now, the app will return a JSON response with the image description. 
 
 Since the prompt is "Describe the image", you can upload any image (of a car, a crowd, a street, a blood pressure reading etc) to see a description of it. There are images in the `static/images/readings` folder to test with. Here's an example of a random image:
 
