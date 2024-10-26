@@ -128,6 +128,8 @@ To use the Gemini API, you need an API key. You can create a key with a few clic
 ```env
 GEMINI_API_KEY=<your-api-key>
 ```
+![Getting Gemini API Key](./static/images/screenshots/gemini_5.jpg)
+
 You should not commit this `.env` file to your repository as it contains sensitive information. This is best practice for security reasons.
 
 3. We need to import the Gemini API client and configure it with our API key.
@@ -135,6 +137,18 @@ In the import section of `app.py`, add the following:
 ```python
 from dotenv import load_dotenv
 import google.generativeai as genai
+```
+
+
+So the top of the app.py file should look like this now
+```python
+import os
+from flask import Flask, render_template, request, jsonify
+from PIL import Image
+import io
+from dotenv import load_dotenv
+import google.generativeai as genai
+
 ```
 
 4. After the `app` variable declaration, add the following:
@@ -177,9 +191,11 @@ def analyze_image(image):
     )
 ```
 
-6. Let's test the app by uploading an image. Right now, the app will return a JSON response with the image description. 
+6. Let's test the app by uploading an image.  Right now, the app will return a JSON response with the image description. 
 
-Since the prompt is "Describe the image", you can upload any image (of a car, a crowd, a street, a blood pressure reading etc) to see a description of it. There are images in the `static/images/readings` folder to test with. Here's an example of a random image:
+**Two key thngs to note:**
+- Remember, since we are using hot-reload, you don't need to restart the server.
+- Since the prompt is "Describe the image", you can upload any image (of a car, a crowd, a street, a blood pressure reading etc) to see a description of it. There are images in the `static/images/readings` folder to test with. Here's an example of a random image:
 
 ![Example Image](./static/images/screenshots/step_2_complete.jpg)
 

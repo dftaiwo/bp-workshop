@@ -25,7 +25,7 @@ def analyze():
     
     images = []
     for file in files:
-        if file and allowed_file(file.filename):
+        if file and allowed_file(file):
             image_data = Image.open(file.stream)
             images.append(image_data)
     
@@ -50,7 +50,8 @@ Provide the results in a JSON object with the following keys: readings (an array
         )
     )
 
-def allowed_file(filename):
+def allowed_file(file_object):
+    filename = file_object.filename
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'png', 'jpg', 'jpeg', 'gif'}
 
 if __name__ == '__main__':
