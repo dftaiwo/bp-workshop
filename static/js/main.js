@@ -129,3 +129,4 @@ $(document).ready(function() {
         clearImagesContainer.addClass('hidden');
     }
 });
+
